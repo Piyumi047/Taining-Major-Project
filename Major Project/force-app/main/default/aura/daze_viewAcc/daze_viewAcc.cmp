@@ -1,0 +1,77 @@
+<aura:component controller="daze_Major_Assignment"  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <!--attribute for pagination-->
+    <aura:attribute name="nav" type="String" />
+    
+    <!-- create all attribute for input values-->
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="email" type="String" />
+    <aura:attribute name="ae" type="Integer" />
+    <aura:attribute name="due" type="Integer" />
+    <aura:attribute name="tap" type="Integer" />
+    <aura:attribute name="st" type="String" />
+    <aura:attribute name="color" type="String" />
+    
+    <aura:attribute name="responce" type="String" />
+    <aura:attribute name="accId" type="String" />
+    
+    <aura:registerEvent name="navEvent" type="c:daze_navEvnt"/>
+     
+   <div class="slds-m-bottom_x-large">
+    <lightning:card class="slds-p-around_large" title="Account" iconName="utility:user">
+           <!---navgation buttons-->
+           <lightning:button variant="brand-outline" label="Home" title="Brand action" onclick="{!c.navigatehome}" />  
+           <lightning:button variant="brand-outline" label="Account List" title="Brand action" onclick="{!c.navigateAcclist}" /> 
+           
+        <div>
+          <p>{!v.responce}</p>
+            
+        </div>
+        <!--General Information-->
+            <div class="slds-p-vertical_large">
+            <div class="slds-border_bottom slds-text-heading_medium slds-p-left_medium">General Information</div>
+            <div class="slds-grid slds-p-top_large">
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                    <lightning:input name="Name" label="Name" required="true" value="{!v.name}"/> 
+                </div>
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                    <lightning:input name="Email" label="Email" required="true" value="{!v.email}"/>
+                    
+                </div>
+            </div>  
+           </div>
+       
+        <!--Payment Information-->
+           <div class="slds-p-vertical_large"> 
+                <div class="slds-border_bottom slds-text-heading_medium slds-p-left_medium">Payment Information</div>
+            <div class="slds-grid slds-p-top_large">
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                    <lightning:input name="AmountEntitled" label="Amount Entitled" required="true" value="{!v.ae}"/> 
+                </div>
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                    <lightning:input class="{!v.color}" name="Status" label="Status" readonly="true" value="{!v.st}"/> 
+                    
+                </div>
+            </div> 
+             <div class="slds-grid slds-p-top_large">
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                    <lightning:input name="Total" label="Total Amount Paid" readonly="true" value="{!v.tap}" /> 
+                </div>
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                    <lightning:input name="DUE" label="DUE" readonly="true" value="{!v.due}"/>                    
+                </div>
+            </div>  
+            <br/>
+        </div>
+         
+            <div class="slds-align_absolute-center" style="height:5rem">
+                <lightning:button variant="brand"  label="Save" title="save" onclick="{!c.saveAccount}"/>
+                <lightning:button variant="brand-outline"  label="Cancle" title="Cancle" onclick="{!c.cancle}"/>
+            </div>
+
+    </lightning:card>
+   </div>
+    <div>
+        <c:daze_AccPayDetails title="Payments received" fieldLabel="From_Account" field="daze_To_AccountId__c" accId="{!v.accId}"/>
+        <c:daze_AccPayDetails title="Payments Transferred" fieldLabel="To_Account" field="daze_From_AccountId__c" accId="{!v.accId}"/>
+    </div>
+</aura:component>

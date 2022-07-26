@@ -1,0 +1,94 @@
+<aura:component controller="daze_Major_Assignment" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}"/> 
+    <aura:attribute name="nav" type="String" />
+    <aura:attribute name="show" type="String" default="PaymentList"/>
+    
+    <aura:attribute name="pno" type="Integer" />
+    <aura:attribute name="total" type="Integer" />
+    <aura:attribute name="pages" type="Integer" />
+    <aura:attribute name="accVal" type="List" />
+    <aura:attribute name="ae" type="String" />
+    
+    <aura:handler name="navEvent" event="c:daze_navEvnt" action="{!c.movePage}"/>
+    
+    <aura:attribute name="paymentList" type="daze_Payment__c[]" />
+    
+    <aura:if isTrue="{!v.show=='PaymentList'}">
+    <div class="">
+     <lightning:card class="px-5 py-5">
+         <div class="pb-3">
+             <lightning:button class="btn btn-outline-primary " label="Home" title="Brand action" onclick="{!c.gotoHome}" />  
+             <lightning:button class="btn btn-outline-primary " label="Add Payment" title="Brand action" onclick="{!c.gotoPaymentDetails }"/>
+         </div> 
+        
+             <div class="fw-bold fs-4 pb-1">Payments</div>
+         
+         
+        
+         
+        <div class="px-4 py-4 ">
+    	<table class="table caption-top border-radius-3 boaard-r">
+            <thead class="bg-secondary bg-opacity-25">
+                <tr class="rounded-top ">
+                	<th scope="col">
+                        <div class="px-2 py-2 w-12" title="AName">Payment Id</div>
+                    </th>
+                    <th scope="col">
+                        <div class="px-2 py-2 w-12" title="AEmail">From Account</div>
+                    </th>
+                    <th scope="col">
+                        <div class="px-2 py-2 w-8" title="TPR">To Account</div>
+                    </th>  
+                    <th scope="col">
+                        <div class="px-2 py-2 w-8" title="Total">Amount</div>
+                    </th>  
+                    <th scope="col">
+                        <div class="px-2 py-2 w-8" title="LPRD"> Date</div>
+                    </th>  
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.paymentList}" var="payobj" >
+                    <tr class="py-1">
+                    	<td  scope="row">
+                            <a href="JavaScript:void(0);" id="{!payobj.Id}" onclick="{!c.viewPayment}"><div >{!payobj.Name}</div></a>
+         
+                        </td>
+                        <td  scope="row">
+                            <div >{!payobj.daze_From_Account__c}</div>
+                        </td>
+                        <td  scope="row">
+                            <div >{!payobj.daze_To_Account__c}</div>
+                        </td>
+                        <td  scope="row">
+                            <div >{!payobj.daze_Amount__c}</div>
+                        </td>
+                        <td  scope="row">
+                            <div >{!payobj.daze_Date__c}</div>
+                        </td>
+                       
+                    </tr>
+                </aura:iteration>
+            </tbody>
+    	</table>
+         </div>
+         <div class="py-3 ps-4 justify-content-end" style="height:5rem">
+             <div>
+                <lightning:button disabled="{!v.pno==1}" variant="brand"  value="Prev" label="Prev" onclick="{!c.navpage}"/>
+                <lightning:button disabled="{!v.pno==v.pages}" variant="brand" aura:id="previouspage" value="Next" label="Next" onclick="{!c.navpage}"/>
+               </div> 
+              <div class="text-end " >
+                <p class="mx-4">  {!v.pno} of {!v.pages} </p>
+             </div>
+         </div>
+           
+    </lightning:card>
+    </div>
+        <aura:set attribute="else">
+            <c:daze_viewPaymentdetails  Id="{!v.accVal[0].Name}" fname="{!v.accVal[0].daze_From_Account__c}" tname="{!v.accVal[0].daze_To_Account__c}"  amount="{!v.accVal[0].daze_Amount__c}" ae="{!v.ae[0].daze_Amount_Entitled__c}"/>
+        </aura:set>
+     </aura:if>
+    
+</aura:component>

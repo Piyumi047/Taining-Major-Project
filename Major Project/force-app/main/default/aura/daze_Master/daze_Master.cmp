@@ -1,0 +1,26 @@
+<aura:component  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <ltng:require styles="{!$Resource.bootstrap}"/>
+    
+    <aura:attribute name="nav" type="String" default="Home"/>
+  
+    <aura:if isTrue="{!v.nav == 'Home'}">
+    	<c:daze_Home nav="{!v.nav}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.nav =='AccDetails'}">
+    	<c:daze_AccDetails nav="{!v.nav}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.nav =='AccList'}">
+    	 <c:daze_AccList nav="{!v.nav}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.nav =='PayDetails'}">
+    	<c:daze_PayDetails nav="{!v.nav}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.nav =='PayList'}">
+    	<c:daze_PayList  nav="{!v.nav}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.nav =='ConList'}">
+    	<c:Contactlist  nav="{!v.nav}"/>
+    </aura:if>
+    
+    
+</aura:component>
