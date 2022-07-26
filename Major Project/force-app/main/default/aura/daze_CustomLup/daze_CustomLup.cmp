@@ -1,0 +1,35 @@
+<aura:component controller="daze_Major_Assignment" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    <aura:attribute name="recordList" type="Object" />
+    <aura:attribute name="labelName" type="String"/>
+    <aura:attribute name="ae" type="Object"/>   
+    <aura:attribute name="getae" type="Object"/>
+    <aura:attribute name="selectedRecord" type="object"/>    
+    <aura:attribute name="iconName" type="String" default="standard:account" />
+    
+    <!--allevent-->
+    <aura:handler name="lookupEvnt" event="c:daze_sendsearchKey" action="{!c.doHandleSearchEvent}"/>
+    <aura:handler name="selectEvent" event="c:daze_lookupSelectionevnt" action="{!c.doHandleSelectEvent}"/>
+    <aura:registerEvent name="fAccEvent" type="c:daze_sendSelectedIdEvnt"/>
+    <aura:registerEvent name="toAccEvent" type="c:daze_sendToaccEvnt"/>
+	 
+    <div class="slds-p-left_small slds-p-top_small slds-p-bottom_small">
+        
+        <aura:if isTrue="{!v.selectedRecord == null}">
+        	<c:daze_Lookupsearch  labelName="{!v.labelName}"/>
+            <aura:set attribute="else">
+                 <lightning:input label="{!v.labelName}" value="{!v.selectedRecord.Name}" required="true" onchange="{!c.handleRemove}"/>
+               
+                 <!--<lightning:pill label="{!v.selectedRecord.Name}"  onremove="{!c.handleRemove}">
+                        <aura:set attribute="media">
+                            <lightning:icon iconName="standard:account"  alternativeText="Account"/>
+                        </aura:set>
+                 </lightning:pill>-->
+            </aura:set>
+        </aura:if>        
+    </div>
+    
+    <div>
+        <c:daze_LockupList rlist="{!v.recordList}"/>
+    </div>
+</aura:component>

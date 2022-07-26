@@ -1,0 +1,87 @@
+<aura:component controller="daze_Major_Assignment" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:handler name="init" value="{!this}"  action="{!c.doinit}" /> 
+    <aura:attribute name="page" type="String" />
+    
+    <aura:attribute name="title" type="String"/>
+    <aura:attribute name="fieldLabel" type="String"/>
+    <aura:attribute name="accId" type="String"/>
+    <aura:attribute name="aId" type="String"/>
+    <aura:attribute name="field" type="String"/>
+    <aura:attribute name="pno" type="Integer"/>
+    <aura:attribute name="total" type="Integer" />
+    <aura:attribute name="pages" type="Integer" />
+    
+    <aura:handler name="sendid" event="c:daze_sendAId" action="{!c.getid}"/>
+    
+    <aura:attribute name="reList" type="daze_Payment__c[]" />
+   
+    <div class="">
+     <lightning:card class="px-5 py-5">
+         <div class="pb-3">
+              {!v.AccountId}
+             <lightning:input value="{!v.AccountId}" hidden="true" aura:id="accId"/>
+         </div> 
+        
+             <div class="slds-text-heading_medium slds-text-align_center"><strong>{!v.title}</strong></div>
+         <div >
+            <lightning:select aura:id="recordSize" label="Display record per page" onchange="{!c.onselectChange}">
+                <option text="2" label="2" value="true"/>
+                <option text="5" label="5"/>
+                <option text="7" label="7"/>            
+            </lightning:select>
+        </div>
+         
+        <div class="px-4 py-4 ">
+    	<table class="table caption-top border-radius-3 boaard-r">
+            <thead class="bg-secondary bg-opacity-25">
+                <tr class="rounded-top ">
+                	<th scope="col">
+                        <div  title="AName">Payment Id</div>
+                    </th>
+                    <th scope="col">
+                        <div  title="AEmail">Amount</div>
+                    </th>
+                    <th scope="col">
+                        <div  title="TPR">{!v.fieldLabel}</div>
+                    </th>   
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.reList}" var="robj" >
+                    <tr class="py-1">
+                    	<td data-label="Account Name" scope="row">
+                            <div >{!robj.Name}</div>
+                        </td>
+                        <td data-label="daze_Email__c" scope="row">
+                            <div >{!robj.daze_Amount__c}</div>
+                        </td>
+                        <aura:if isTrue="{!v.fieldLabel=='To Account'}">
+                            <td data-label="daze_Total_Payment_Recived__c" scope="row">
+                                <div >{!robj.daze_To_Account__c}</div>
+                            </td>
+                            <aura:set  attribute="else">
+                                <td data-label="daze_Total_Payment_Recived__c" scope="row">
+                                      <div >{!robj.daze_From_Account__c}</div>
+                                </td>
+                            </aura:set>
+                            
+                        </aura:if>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+    	</table>
+         </div>
+         <div class="py-3 ps-4 justify-content-end" style="height:5rem">
+             <div>
+                <lightning:button disabled="{!v.pno==1}" variant="brand"  value="Prev" label="Prev" onclick="{!c.navpage}"/>
+                <lightning:button disabled="{!v.pno==v.pages}" variant="brand" aura:id="previouspage" value="Next" label="Next" onclick="{!c.navpage}"/>
+               </div> 
+              <div class="text-end " >
+                <!--<p class="mx-4">({!v.total} Accounts)  {!v.pno} of {!v.pages} </p>-->
+             </div>
+         </div>
+           
+    </lightning:card>    
+    </div>
+    
+</aura:component>

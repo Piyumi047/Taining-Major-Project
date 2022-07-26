@@ -1,0 +1,12 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:registerEvent name="lookupEvnt" type="c:daze_sendsearchKey"/>
+    <aura:attribute name="labelName" type="String"/>
+	<div >
+      <lightning:input
+         aura:id="enter-search"
+         name="enter-search"
+         label="{!v.labelName}"
+         type="search"
+         onkeyup="{!c.handlekeyup}" required="true"/>
+    </div>
+</aura:component>

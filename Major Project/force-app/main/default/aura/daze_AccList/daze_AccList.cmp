@@ -1,0 +1,105 @@
+<aura:component controller="daze_Major_Assignment" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="nav" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}"/>    
+    
+    <!-- create all attribute -->
+    <aura:attribute name="page" type="String" default="AccountList"/>
+    <aura:attribute name="pno" type="Integer"/>
+    <aura:attribute name="total" type="Integer"/>
+    <aura:attribute name="pages" type="Integer"/>
+    <aura:attribute name="accVal" type="Object"/>
+    <aura:attribute name="accountList" type="Account[]"/>
+    <aura:attribute name="disp" type="String" default="AccountList"/>
+    <aura:attribute name="status" type="String"/>
+    <aura:attribute name="color" type="String"/>
+    <aura:handler name="navEvent" event="c:daze_navEvnt" action="{!c.movePage}"/>
+    
+    <!--<aura:registerEvent name="sendid" type="c:daze_sendAId"/>-->
+    
+    <aura:if isTrue="{!v.disp=='AccountList'}">
+    <div >
+     <lightning:card class="px-5 py-5">
+         <div class="pb-3">
+             <lightning:button class="btn btn-outline-primary " label="Home" title="Brand action" onclick="{!c.gotoHome}" />  
+             <lightning:button class="btn btn-outline-primary " label="Add Account" title="Brand action" onclick="{!c.gotoAccountDetails }" />
+         </div>         
+             <div class="fw-bold fs-4 pb-1">Accounts</div>
+                 
+        <div class="px-4 py-4 ">
+    	<table class="table caption-top border-radius-3 boaard-r">
+            <thead class="bg-secondary bg-opacity-25">
+                <tr class="rounded-top ">
+                	<th scope="col">
+                        <div class="px-2 py-2 w-12" title="AName">Account Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="px-2 py-2 w-12" title="AEmail">Account Email</div>
+                    </th>
+                    <th scope="col">
+                        <div class="px-2 py-2 w-8" title="TPR">Tatal Payment Received</div>
+                    </th>  
+                    <th scope="col">
+                        <div class="px-2 py-2 w-8" title="Total">Total Due</div>
+                    </th>  
+                    <th scope="col">
+                        <div class="px-2 py-2 w-8" title="LPRD">Last Payment Received Date</div>
+                    </th>  
+                    <th scope="col">
+                        <div class="px-2 py-2 w-8" title="Status">Status</div>
+                    </th>  
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.accountList}" var="accobj" >
+                    <tr class="py-1">
+                    	<td  scope="row">
+                            <a href="JavaScript:void(0);" id="{!accobj.Id}" onclick="{!c.viewAccount}"><div >{!accobj.Name}</div></a>
+                        </td>
+                        <td  scope="row">
+                            <div >{!accobj.daze_Email__c}</div>
+                        </td>
+                        <td  scope="row">
+                            <div >{!accobj.daze_Total_Payment_Recived__c}</div>
+                        </td>
+                        <td  scope="row">
+                            <div >{!accobj.daze_Due__c}</div>
+                        </td>
+                        <td  scope="row">
+                            <div >{!accobj.daze_Last_Paymet_Recived_Date__c}</div>
+                        </td>                       
+                        <td  scope="row">
+                            <aura:if isTrue="{!greaterthan(accobj.daze_Due__c,0)}">
+                                <div class="slds-text-color_default"><strong>Outstanding</strong></div>
+                            </aura:if>
+                            <aura:if isTrue="{!lessthan(accobj.daze_Due__c,0)}">
+                                <div class="slds-text-color_error"><strong>OverPaid</strong></div>
+                            </aura:if>
+                            <aura:if isTrue="{!(accobj.daze_Due__c==0)}">                           
+                                 <div class="slds-text-color_success"><strong>Paid in Full</strong></div>
+                            </aura:if>
+ 
+                        </td>                       
+                    </tr>
+                </aura:iteration>
+            </tbody>
+    	</table>
+         </div>
+         <div class="py-3 ps-4 justify-content-end" style="height:5rem">
+             <div>
+                <lightning:button disabled="{!v.pno==1}" variant="brand"  value="Prev" label="Prev" onclick="{!c.navpage}"/>
+                <lightning:button disabled="{!v.pno==v.pages}" variant="brand" aura:id="previouspage" value="Next" label="Next" onclick="{!c.navpage}"/>
+               </div> 
+              <div class="text-end " >
+                <p class="mx-4">  {!v.pno} of {!v.pages} </p>
+             </div>
+         </div>
+           
+    </lightning:card>
+    </div>
+        <aura:set  attribute="else">
+            <c:daze_viewAcc accId="{!v.accVal[0].Id}" name="{!v.accVal[0].Name}" email="{!v.accVal[0].daze_Email__c}" ae="{!v.accVal[0].daze_Amount_Entitled__c}" due="{!v.accVal[0].daze_Due__c}" tap="{!v.accVal[0].daze_Total_Payment_Recived__c}" st="{!v.status}" color="{!v.color}"/>
+        </aura:set>
+    </aura:if>
+     
+   
+</aura:component>

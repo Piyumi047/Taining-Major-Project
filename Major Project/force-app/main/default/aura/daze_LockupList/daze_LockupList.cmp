@@ -1,0 +1,25 @@
+<aura:component >
+    <aura:attribute name="rlist" type="object"/>
+    <aura:registerEvent name="selectEvent" type="c:daze_lookupSelectionevnt"/>
+    <div class="slds-p-left_small">
+   
+   
+   <aura:iteration items="{!v.rlist}" var="item" indexVar="index">     
+            <div class="slds-grid slds-wrap">
+            <lightning:icon iconName="standard:account" alternativeText="Account" title="Account" />
+            <div role="option" id="{!index}"  onclick="{!c.doSelect}">
+                
+                <span>    
+                   {!item.Name}<br/>
+                </span>
+            </div>
+   
+            </div>
+          
+       </aura:iteration>
+        
+    </div>
+   
+    
+    
+</aura:component>

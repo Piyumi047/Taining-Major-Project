@@ -1,0 +1,27 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="nav" type="String" default='Home'/>
+    <ltng:require styles="{!$Resource.bootstrap}"/>
+   
+    <lightning:card class="slds-p-bottom_xx-large">
+        <br/> 
+        
+        <div class="slds-p-vertical_large">
+            <div class="slds-text-heading_large slds-text-align_center slds-p-bottom_xx-large">Dazeworks Major Assignment</div>
+            <div class="slds-grid slds-p-top_large">
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                    <img src="{!$Resource.homeimage}"/>
+                </div>
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large  " >
+                    <div class="slds-grid slds-p-top_large slds-align_absolute-center">
+                    	<lightning:button class="slds-p-horizontal_xx-large" variant="brand" label="Accounts" title="Brand action" onclick="{!c.gotoAccountList}"/>
+                    </div>
+                    <div class="slds-grid slds-p-top_large slds-align_absolute-center">
+                     	<lightning:button class="slds-p-horizontal_xx-large" variant="brand-outline" label="Payments" title="Brand action" onclick="{!c.gotoPaymentList}" />  
+                	</div> 
+                    
+                </div>
+            </div>  
+          </div>
+    </lightning:card> 
+    
+</aura:component>

@@ -1,0 +1,68 @@
+<aura:component controller="daze_Major_Assignment" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<!--<ltng:require styles="{!$Resource.bootstrap}"/>-->
+    <aura:attribute name="nav" type="String" />
+    <!--<aura:registerEvent name="daze_InputCarryEvent" type="c:daze_InputCarryEvent"/>-->
+    <!-- create all attribute for input values-->
+    <aura:attribute name="faccount" type="Object" />
+    <aura:attribute name="taccount" type="Object" />
+    <aura:attribute name="amount" type="object" />
+    <aura:attribute name="payAmount" type="Decimal"/>
+    <aura:attribute name="responce" type="string"/>
+    <aura:attribute name="id" type="string"/>
+
+    <aura:attribute name="selectedRecord" type="Object" />
+    <aura:handler name="fAccEvent" event="c:daze_sendSelectedIdEvnt" action="{!c.doHandledataEvent}"/>
+    <aura:handler name="toAccEvent" event="c:daze_sendToaccEvnt" action="{!c.doSendToaccEvent}"/>
+    <!--<aura:registerEvent name="lookupEvnt" type="c:daze_customlookupEvnt"/>-->
+    
+     <div >
+    <lightning:card class="slds-p-around_x-large" title="Payment" iconName="utility:moneybag">
+           <lightning:button variant="brand-outline" label="Home" title="Brand action" onclick="{!c.gotoHome}" />  
+           <lightning:button variant="brand-outline" label="Payment List" title="Brand action" onclick="{!c.gotoPaymentList }" /> 
+            
+        <!--General Information-->
+          <div class="slds-m-around_large slds-p-bottom_xx-large">
+              {!v.responce}
+            <div class="slds-p-vertical_large">
+            <div class="slds-border_bottom slds-text-heading_small slds-p-left_medium"><strong>General Information</strong></div>
+            <div class="slds-grid slds-p-top_large">
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                    <!--lightning:input name="FromA" label="From Account" required="true" value="0015j00000Dv4MlAAJ"-->
+                    <c:daze_CustomLup labelName="From Account" />
+                   
+                </div>
+               
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                    <!--<lightning:input name="ToA" label="To Account" required="true" value="0015j00000DvL6KAAV"/>-->
+                     <c:daze_CustomLup labelName="To Account"/>                  
+                   
+                </div>
+            </div> 
+             <div class="slds-grid slds-p-top_large">
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large ">
+                    <lightning:input name="AE" label="Amount Entitled" readonly="true" value="{!v.amount}"/>
+                   
+                </div>
+            </div> 
+           </div>
+       
+        <!--Payment Information-->
+           <div class="slds-p-vertical_large slds-p-bottom_large"> 
+               <div class="slds-border_bottom slds-text-heading_small slds-p-left_medium"><strong>Payment Information</strong></div>
+            <div class="slds-grid slds-p-top_large">
+                <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large ">
+                     
+                    <lightning:input name="Amount" label="Amount" required="true" value="{!v.payAmount}"/> 
+                </div>
+            <br/>
+        </div>
+         
+            <div class="slds-align_absolute-center" style="height:10rem">
+                <lightning:button variant="brand"  label="Save" title="save" onclick="{!c.savePayment}"/>
+                <lightning:button variant="brand-outline"  label="Cancle" title="Cancle" />
+            </div>
+        </div>
+          </div>
+    </lightning:card>
+   </div>
+</aura:component>
