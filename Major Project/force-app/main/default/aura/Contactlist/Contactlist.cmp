@@ -1,0 +1,55 @@
+<aura:component controller="cotactReview" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:handler name="init" value="{!this}" action="{!c.showContactlist}"/> 
+    
+    <aura:attribute name="nav" type="String" default="ConList"/>  
+    <aura:attribute name="contactList" type="Contact[]" />
+    
+    <div>
+     <lightning:card class="px-5 py-5">         
+        <div class="px-4 py-4 ">
+    	<table class="table caption-top border-radius-3 boaard-r">
+            <thead class="bg-secondary bg-opacity-25">
+                <tr class="rounded-top">
+                	<th scope="col">
+                        <div class="px-2 py-2 w-12" title="cName">Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="px-2 py-2 w-12" title="cEmail">Account Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="px-2 py-2 w-8" title="Title">Title</div>
+                    </th>  
+                    <th scope="col">
+                        <div class="px-2 py-2 w-8" title="Phone">Phone</div>
+                    </th>  
+                    <th scope="col">
+                        <div class="px-2 py-2 w-8" title="Email">Email</div>
+                    </th>                     
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.contactList}" var="conobj" >
+                    <tr class="py-1">
+                    	<td  scope="row">
+                            <div >{!conobj.Name}</div>      
+                        </td>
+                        <td  scope="row">
+                            <div >{!conobj.AccountId}</div>
+                        </td>
+                        <td  scope="row">
+                            <div >{!conobj.Title}</div>
+                        </td>
+                        <td  scope="row">
+                            <div >{!conobj.Phone}</div>
+                        </td>
+                        <td  scope="row">
+                            <div >{!conobj.Email}</div>
+                        </td>                       
+                    </tr>
+                </aura:iteration>
+            </tbody>
+    	</table>
+        </div>    
+    </lightning:card>
+    </div>   
+</aura:component>
