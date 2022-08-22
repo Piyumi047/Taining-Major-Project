@@ -1,4 +1,4 @@
-# Taining-Major-Project
+# Training-Major-Project
 <img src="Major Project/images/homepage.png"/>
 <img src="Major Project/images/accdetails.png"/>
 <img src="Major Project/images/account.png"/>
